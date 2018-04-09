@@ -4,10 +4,14 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
 
+/**
+键盘输入
+*/
 func Input(r *bufio.Reader) string {
 	v, _, e := r.ReadLine()
 
@@ -26,6 +30,9 @@ func Input(r *bufio.Reader) string {
 	return s
 }
 
+/**
+是否为自动更新
+*/
 func AutoUpdate(in bool, tb string) bool {
 	if in {
 		return true
@@ -49,6 +56,9 @@ func AutoUpdate(in bool, tb string) bool {
 	return auto
 }
 
+/**
+进度展示到窗口
+*/
 func UpdateProcess(str string, t int) {
 	if t > 0 {
 		time.Sleep(100 * time.Millisecond)
@@ -56,4 +66,16 @@ func UpdateProcess(str string, t int) {
 
 	fmt.Printf("\r%s", str)
 	os.Stdout.Sync()
+}
+
+/**
+时间戳　转　时间字符串
+*/
+func StrToDate(old string) string {
+	st, err := strconv.ParseInt(old, 10, 64)
+	if err != nil {
+		return ""
+	}
+
+	return time.Unix(st, 0).Format("2006-01-02 15:04:05")
 }

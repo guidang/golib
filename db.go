@@ -20,6 +20,9 @@ type Database struct {
 	DSN string
 }
 
+/**
+配置数据库
+*/
 func (this *Database) Setting() {
 	buf := bufio.NewReader(os.Stdin)
 	db := this
@@ -150,6 +153,9 @@ func (this *Database) FieldAddPrev(prev, fieldStr string) string {
 	return newFieldStr
 }
 
+/**
+将
+*/
 func (this *Database) FieldMakeQmark(str string, symbol string) string {
 	strArr := strings.Split(str, ",")
 	strLen := len(strArr)
@@ -165,6 +171,9 @@ func (this *Database) FieldMakeQmark(str string, symbol string) string {
 	return strings.Join(arr, ",")
 }
 
+/**
+将
+*/
 func (this *Database) FieldMakeValue(str string) string {
 	strArr := strings.Split(str, ",")
 	strLen := len(strArr)
