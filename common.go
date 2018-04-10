@@ -2,7 +2,9 @@ package lib
 
 import (
 	"bufio"
+	"encoding/binary"
 	"fmt"
+	"net"
 	"os"
 	"strconv"
 	"strings"
@@ -78,4 +80,27 @@ func StrToDate(old string) string {
 	}
 
 	return time.Unix(st, 0).Format("2006-01-02 15:04:05")
+}
+
+/**
+IP 转整型
+
+*/
+func Ip2long(ipstr string) uint32 {
+	ip := net.ParseIP(ipstr)
+	if ip == nil {
+		return 0
+	}
+	ip = ip.To4()
+	return binary.BigEndian.Uint32(ip)
+}
+
+/**
+整型转 ip
+*/
+func Long2ip(ipLong uint32) string {
+	ipByte := make([]byte, 4)
+	binary.BigEndian.PutUint32(ipByte, ipLong)
+	ip := net.IP(ipByte)
+	return ip.String()
 }
