@@ -1,8 +1,9 @@
 package lib
 
 import (
-	"github.com/frustra/bbcode"
+	"fmt"
 	"github.com/mozillazg/go-pinyin"
+	"github.com/skiy/bbcode"
 	"strings"
 )
 
@@ -25,5 +26,63 @@ bbcode 转 html
 */
 func BBCodeToHtml(msg string) string {
 	compiler := bbcode.NewCompiler(true, true)
+
+	//转 table
+	compiler.SetTag("table", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "table"
+		return out, true
+	})
+
+	//转 tr
+	compiler.SetTag("tr", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "tr"
+
+		return out, true
+	})
+	//转 td
+	compiler.SetTag("td", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "td"
+
+		return out, true
+	})
+
+	//ul
+	compiler.SetTag("list", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "ul"
+
+		return out, true
+	})
+
+	//text-align
+	compiler.SetTag("align", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "div"
+		value := node.GetOpeningTag().Value
+		fmt.Println(value)
+		if value != "" {
+			out.Attrs["text-align"] = value
+		}
+		return out, true
+	})
+
+	//li -> 将 [*] 转为 li
+	compiler.SetTag("*", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = "li"
+
+		return out, true
+	})
+
+	//font -> 清空 font
+	compiler.SetTag("font", func(node *bbcode.BBCodeNode) (*bbcode.HTMLTag, bool) {
+		out := bbcode.NewHTMLTag("")
+		out.Name = ""
+
+		return out, true
+	})
 	return compiler.Compile(msg)
 }
