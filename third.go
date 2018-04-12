@@ -64,7 +64,7 @@ func BBCodeToHtml(msg string) string {
 		value := node.GetOpeningTag().Value
 		fmt.Println(value)
 		if value != "" {
-			out.Attrs["text-align"] = value
+			out.Attrs["style"] = "text-align: " + value
 		}
 		return out, true
 	})
