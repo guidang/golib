@@ -98,7 +98,7 @@ func CopyDir(src string, dst string) (err error) {
 		return
 	}
 	if err == nil {
-		return fmt.Errorf("目标已存在")
+		return fmt.Errorf("目标文件夹已存在")
 	}
 
 	err = os.MkdirAll(dst, si.Mode())
