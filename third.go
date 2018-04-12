@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"fmt"
 	"github.com/mozillazg/go-pinyin"
 	"github.com/skiy/bbcode"
 	"strings"
