@@ -62,7 +62,6 @@ func BBCodeToHtml(msg string) string {
 		out := bbcode.NewHTMLTag("")
 		out.Name = "div"
 		value := node.GetOpeningTag().Value
-		fmt.Println(value)
 		if value != "" {
 			out.Attrs["style"] = "text-align: " + value
 		}
