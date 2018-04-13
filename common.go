@@ -112,12 +112,26 @@ func Substr(str string, start int, end int) string {
 	rs := []rune(str)
 	length := len(rs)
 
-	if start < 0 || start > length {
+	//取末尾
+	endLen := start + end
+
+	//开始和结束大于总长度
+	if start > length || endLen > length {
 		return ""
 	}
 
-	if end < 0 || end > length {
+	//负数时，从后面起取值
+	if start < 0 {
+		startAbs := length + start
+		if startAbs >= 0 {
+			start = startAbs
+			endLen = length
+		}
+	}
+
+	if start < 0 || endLen > length {
 		return ""
 	}
-	return string(rs[start:end])
+
+	return string(rs[start:endLen])
 }
