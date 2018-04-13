@@ -184,3 +184,22 @@ func (this *Database) FieldMakeValue(str string) string {
 	}
 	return strings.Join(arr, ",")
 }
+
+/**
+将 a,b,c 处理成 'a','b','c'
+*/
+func (this *Database) ValueMakeData(str string) string {
+	strArr := strings.Split(str, ",")
+	strLen := len(strArr)
+
+	if strLen == 0 {
+		return ""
+	}
+
+	var arr []string
+	for _, v := range strArr {
+		arr = append(arr, "'"+v+"'")
+	}
+
+	return strings.Join(arr, ",")
+}
